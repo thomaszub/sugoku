@@ -7,7 +7,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/thomaszub/sugoku/style"
+	"github.com/thomaszub/sugoku/view"
 )
 
 type model struct {
@@ -89,7 +89,7 @@ func printBlock(board Board, rowStart, colStart uint8, pos Position) string {
 		for col := colStart * 3; col < colStart*3+3; col++ {
 			val := board[row][col]
 			if row == pos.Row && col == pos.Col {
-				cols = append(cols, style.Position.Render(fmt.Sprintf("%d", val)))
+				cols = append(cols, view.PositionStyle.Render(fmt.Sprintf("%d", val)))
 			} else {
 				cols = append(cols, fmt.Sprintf("%d", val))
 			}
@@ -97,7 +97,7 @@ func printBlock(board Board, rowStart, colStart uint8, pos Position) string {
 		col := strings.Join(cols, " ")
 		rows = append(rows, col)
 	}
-	return style.BorderBlock[rowStart][colStart].Render(strings.Join(rows, "\n"))
+	return view.BorderBlockStyle[rowStart][colStart].Render(strings.Join(rows, "\n"))
 }
 
 func main() {
