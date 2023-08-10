@@ -3,29 +3,24 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
 	"github.com/thomaszub/sugoku/game"
 	"github.com/thomaszub/sugoku/view"
 )
 
-type Position struct {
-	Row uint8
-	Col uint8
-}
-
 type model struct {
 	board    game.Board
-	position Position
+	position view.Position
+	printer  view.Printer
 }
 
 func initialModel() model {
 	board := game.NewBoard()
 	return model{
 		board:    board,
-		position: Position{4, 4},
+		position: view.Position{Row: 4, Col: 4},
+		printer:  view.Printer{},
 	}
 }
 
@@ -63,47 +58,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) View() string {
 	s := "sugoku\n"
 
-	s += printBoard(m.board, m.position)
+	s += m.printer.PrintBoard(m.board, m.position)
 
 	s += "\n\nPress q to quit.\n"
 	return s
-}
-
-func printBoard(board game.Board, pos Position) string {
-	rows := []string{}
-	for row := uint8(0); row <= 2; row++ {
-		row := printRow(board, row, pos)
-		rows = append(rows, row)
-	}
-	s := lipgloss.JoinVertical(lipgloss.Left, rows...)
-	return lipgloss.NewStyle().Margin(2).Render(s)
-}
-
-func printRow(board game.Board, row uint8, pos Position) string {
-	blocks := []string{}
-	for col := uint8(0); col <= 2; col++ {
-		block := printBlock(board, row, col, pos)
-		blocks = append(blocks, block)
-	}
-	return lipgloss.JoinHorizontal(lipgloss.Top, blocks...)
-}
-
-func printBlock(board game.Board, rowStart, colStart uint8, pos Position) string {
-	rows := []string{}
-	for row := rowStart * 3; row < rowStart*3+3; row++ {
-		cols := []string{}
-		for col := colStart * 3; col < colStart*3+3; col++ {
-			val := board[row][col]
-			if row == pos.Row && col == pos.Col {
-				cols = append(cols, view.PositionStyle.Render(fmt.Sprintf("%d", val)))
-			} else {
-				cols = append(cols, fmt.Sprintf("%d", val))
-			}
-		}
-		col := strings.Join(cols, " ")
-		rows = append(rows, col)
-	}
-	return view.BorderBlockStyle[rowStart][colStart].Render(strings.Join(rows, "\n"))
 }
 
 func main() {
