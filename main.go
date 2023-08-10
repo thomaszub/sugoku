@@ -7,16 +7,22 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/thomaszub/sugoku/game"
 	"github.com/thomaszub/sugoku/view"
 )
 
+type Position struct {
+	Row uint8
+	Col uint8
+}
+
 type model struct {
-	board    Board
+	board    game.Board
 	position Position
 }
 
 func initialModel() model {
-	board := baseBoard
+	board := game.NewBoard()
 	return model{
 		board:    board,
 		position: Position{4, 4},
@@ -63,7 +69,7 @@ func (m model) View() string {
 	return s
 }
 
-func printBoard(board Board, pos Position) string {
+func printBoard(board game.Board, pos Position) string {
 	rows := []string{}
 	for row := uint8(0); row <= 2; row++ {
 		row := printRow(board, row, pos)
@@ -73,7 +79,7 @@ func printBoard(board Board, pos Position) string {
 	return lipgloss.NewStyle().Margin(2).Render(s)
 }
 
-func printRow(board Board, row uint8, pos Position) string {
+func printRow(board game.Board, row uint8, pos Position) string {
 	blocks := []string{}
 	for col := uint8(0); col <= 2; col++ {
 		block := printBlock(board, row, col, pos)
@@ -82,7 +88,7 @@ func printRow(board Board, row uint8, pos Position) string {
 	return lipgloss.JoinHorizontal(lipgloss.Top, blocks...)
 }
 
-func printBlock(board Board, rowStart, colStart uint8, pos Position) string {
+func printBlock(board game.Board, rowStart, colStart uint8, pos Position) string {
 	rows := []string{}
 	for row := rowStart * 3; row < rowStart*3+3; row++ {
 		cols := []string{}

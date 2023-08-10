@@ -1,10 +1,9 @@
-package main
+package game
 
 type Board = [][]uint8
 
-type Position struct {
-	Row uint8
-	Col uint8
+func NewBoard() Board {
+	return baseBoard
 }
 
 var baseBoard = Board{
