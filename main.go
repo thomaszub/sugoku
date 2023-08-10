@@ -20,7 +20,7 @@ func initialModel() model {
 	return model{
 		board:    board,
 		position: view.Position{Row: 4, Col: 4},
-		printer:  view.Printer{},
+		printer:  view.NewPrinter("#FAFAFA", "#7D56F4"),
 	}
 }
 

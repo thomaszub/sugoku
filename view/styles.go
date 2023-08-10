@@ -2,29 +2,33 @@ package view
 
 import "github.com/charmbracelet/lipgloss"
 
-var PositionStyle = lipgloss.NewStyle().
-	Bold(true).
-	Foreground(lipgloss.Color("#FAFAFA")).
-	Background(lipgloss.Color("#7D56F4"))
+func positionStyle(foregroundColor, backgroundColor lipgloss.Color) lipgloss.Style {
+	return lipgloss.NewStyle().
+		Bold(true).
+		Foreground(lipgloss.Color(foregroundColor)).
+		Background(lipgloss.Color(backgroundColor))
+}
 
-var border = lipgloss.NewStyle().
-	BorderStyle(lipgloss.OuterHalfBlockBorder()).
-	BorderForeground(lipgloss.Color("#7D56F4"))
+func borderBlockStyle(color lipgloss.Color) [][]lipgloss.Style {
+	border := lipgloss.NewStyle().
+		BorderStyle(lipgloss.OuterHalfBlockBorder()).
+		BorderForeground(color)
 
-var BorderBlockStyle = [][]lipgloss.Style{
-	{
-		border.Copy().Border(lipgloss.OuterHalfBlockBorder(), true, true, false, true),
-		border.Copy().Border(lipgloss.OuterHalfBlockBorder(), true, true, false, true),
-		border.Copy().Border(lipgloss.OuterHalfBlockBorder(), true, true, false, true),
-	},
-	{
-		border.Copy(),
-		border.Copy(),
-		border.Copy(),
-	},
-	{
-		border.Copy().Border(lipgloss.OuterHalfBlockBorder(), false, true, true, true),
-		border.Copy().Border(lipgloss.OuterHalfBlockBorder(), false, true, true, true),
-		border.Copy().Border(lipgloss.OuterHalfBlockBorder(), false, true, true, true),
-	},
+	return [][]lipgloss.Style{
+		{
+			border.Copy().Border(lipgloss.OuterHalfBlockBorder(), true, true, false, true),
+			border.Copy().Border(lipgloss.OuterHalfBlockBorder(), true, true, false, true),
+			border.Copy().Border(lipgloss.OuterHalfBlockBorder(), true, true, false, true),
+		},
+		{
+			border.Copy(),
+			border.Copy(),
+			border.Copy(),
+		},
+		{
+			border.Copy().Border(lipgloss.OuterHalfBlockBorder(), false, true, true, true),
+			border.Copy().Border(lipgloss.OuterHalfBlockBorder(), false, true, true, true),
+			border.Copy().Border(lipgloss.OuterHalfBlockBorder(), false, true, true, true),
+		},
+	}
 }
