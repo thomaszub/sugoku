@@ -7,7 +7,7 @@ type Game struct {
 
 func NewGame() Game {
 	initialBoard := RandomizeBoard(NewBaseBoard(), 256)
-	currentBoard := copyBoard(initialBoard)
+	currentBoard := removeCells(copyBoard(initialBoard), 40)
 	return Game{
 		initialBoard: initialBoard,
 		currentBoard: currentBoard,
