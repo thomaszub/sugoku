@@ -50,10 +50,14 @@ func (p *Printer) printBlock(board game.Board, rowStart, colStart uint8, pos Pos
 		cols := []string{}
 		for col := colStart * 3; col < colStart*3+3; col++ {
 			val := board[row][col]
+			cell := fmt.Sprintf("%d", val)
+			if val == 0 {
+				cell = " "
+			}
 			if row == pos.Row && col == pos.Col {
-				cols = append(cols, p.positionStyle.Render(fmt.Sprintf("%d", val)))
+				cols = append(cols, p.positionStyle.Render(cell))
 			} else {
-				cols = append(cols, fmt.Sprintf("%d", val))
+				cols = append(cols, cell)
 			}
 		}
 		col := strings.Join(cols, " ")

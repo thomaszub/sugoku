@@ -2,12 +2,8 @@ package game
 
 type Board = [][]uint8
 
-func NewBoard() Board {
-	board := copyBoard(baseBoard)
-	for i := 0; i < 256; i++ {
-		board = applyRandomRandomizer(board)
-	}
-	return board
+func NewBaseBoard() Board {
+	return copyBoard(baseBoard)
 }
 
 func copyBoard(board Board) Board {

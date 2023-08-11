@@ -5,6 +5,14 @@ import (
 	"math/rand"
 )
 
+func RandomizeBoard(board Board, steps int) Board {
+	b := copyBoard(board)
+	for i := 0; i < 256; i++ {
+		b = applyRandomRandomizer(b)
+	}
+	return b
+}
+
 type switchRowsRandomizer struct {
 	firstRow  int
 	secondRow int

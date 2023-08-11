@@ -10,15 +10,15 @@ import (
 )
 
 type model struct {
-	board    game.Board
+	game     game.Game
 	position view.Position
 	printer  view.Printer
 }
 
 func initialModel() model {
-	board := game.NewBoard()
+	game := game.NewGame()
 	return model{
-		board:    board,
+		game:     game,
 		position: view.Position{Row: 4, Col: 4},
 		printer:  view.NewPrinter("#FAFAFA", "#7D56F4"),
 	}
@@ -58,7 +58,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) View() string {
 	s := "sugoku\n"
 
-	s += m.printer.PrintBoard(m.board, m.position)
+	s += m.printer.PrintBoard(m.game.CurrentBoard(), m.position)
 
 	s += "\n\nPress q to quit.\n"
 	return s
