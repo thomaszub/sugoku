@@ -17,3 +17,19 @@ func NewGame() Game {
 func (g Game) CurrentBoard() Board {
 	return g.currentBoard
 }
+
+func (g Game) SetNumber(row, col, val uint8) {
+	cell := g.currentBoard[row][col]
+	if cell.Initial {
+		return
+	}
+	g.currentBoard[row][col].Value = val
+}
+
+func (g Game) DeleteNumber(row, col uint8) {
+	cell := g.currentBoard[row][col]
+	if cell.Initial {
+		return
+	}
+	g.currentBoard[row][col].Value = 0
+}

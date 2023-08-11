@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/thomaszub/sugoku/game"
@@ -50,6 +51,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if m.position.Col < 8 {
 				m.position.Col++
 			}
+		case "1", "2", "3", "4", "5", "6", "7", "8", "9":
+			parsed, err := strconv.ParseUint(msg.String(), 10, 8)
+			if err != nil {
+				panic(err)
+			}
+			number := uint8(parsed)
+			m.game.SetNumber(m.position.Row, m.position.Col, number)
+		case "d":
+			m.game.DeleteNumber(m.position.Row, m.position.Col)
 		}
 	}
 	return m, nil

@@ -15,12 +15,14 @@ type Position struct {
 
 type Printer struct {
 	positionStyle    lipgloss.Style
+	guessedCellStyle lipgloss.Style
 	borderBlockStyle [][]lipgloss.Style
 }
 
 func NewPrinter(foregroundColor, backgroundColor lipgloss.Color) Printer {
 	return Printer{
 		positionStyle:    positionStyle(foregroundColor, backgroundColor),
+		guessedCellStyle: guessedCellStyle(foregroundColor),
 		borderBlockStyle: borderBlockStyle(backgroundColor),
 	}
 }
@@ -53,6 +55,9 @@ func (p *Printer) printBlock(board game.Board, rowStart, colStart uint8, pos Pos
 			cellS := fmt.Sprintf("%d", cell.Value)
 			if cell.Value == 0 {
 				cellS = " "
+			}
+			if !cell.Initial {
+				cellS = p.guessedCellStyle.Render(cellS)
 			}
 			if row == pos.Row && col == pos.Col {
 				cols = append(cols, p.positionStyle.Render(cellS))

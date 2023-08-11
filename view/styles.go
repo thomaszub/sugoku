@@ -5,8 +5,14 @@ import "github.com/charmbracelet/lipgloss"
 func positionStyle(foregroundColor, backgroundColor lipgloss.Color) lipgloss.Style {
 	return lipgloss.NewStyle().
 		Bold(true).
-		Foreground(lipgloss.Color(foregroundColor)).
-		Background(lipgloss.Color(backgroundColor))
+		Foreground(foregroundColor).
+		Background(backgroundColor)
+}
+
+func guessedCellStyle(foregroundColor lipgloss.Color) lipgloss.Style {
+	return lipgloss.NewStyle().
+		Bold(true).
+		Foreground(foregroundColor)
 }
 
 func borderBlockStyle(color lipgloss.Color) [][]lipgloss.Style {
