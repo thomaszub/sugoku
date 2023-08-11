@@ -48,11 +48,11 @@ type switchNumberRandomizer struct {
 func (r switchNumberRandomizer) randomize(board Board) Board {
 	for i := range board {
 		for j := range board[i] {
-			switch board[i][j] {
+			switch board[i][j].Value {
 			case r.firstNumber:
-				board[i][j] = r.secondNumber
+				board[i][j].Value = r.secondNumber
 			case r.secondNumber:
-				board[i][j] = r.firstNumber
+				board[i][j].Value = r.firstNumber
 			}
 		}
 	}

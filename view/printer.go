@@ -49,15 +49,15 @@ func (p *Printer) printBlock(board game.Board, rowStart, colStart uint8, pos Pos
 	for row := rowStart * 3; row < rowStart*3+3; row++ {
 		cols := []string{}
 		for col := colStart * 3; col < colStart*3+3; col++ {
-			val := board[row][col]
-			cell := fmt.Sprintf("%d", val)
-			if val == 0 {
-				cell = " "
+			cell := board[row][col]
+			cellS := fmt.Sprintf("%d", cell.Value)
+			if cell.Value == 0 {
+				cellS = " "
 			}
 			if row == pos.Row && col == pos.Col {
-				cols = append(cols, p.positionStyle.Render(cell))
+				cols = append(cols, p.positionStyle.Render(cellS))
 			} else {
-				cols = append(cols, cell)
+				cols = append(cols, cellS)
 			}
 		}
 		col := strings.Join(cols, " ")
